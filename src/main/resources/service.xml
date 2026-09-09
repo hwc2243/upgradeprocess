@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<service name="upgrade" package="com.github.hwc2243.upgrade">
+    <entity name="upgrade">
+        
+        <attribute name="className" type="string" />
+        <attribute name="version" type="string" />
+        <attribute name="executionDateTime" type="datetime" />
+
+        <finder unique="true">
+            <finder-attribute name="className" />
+        </finder>
+    </entity>
+</service>
