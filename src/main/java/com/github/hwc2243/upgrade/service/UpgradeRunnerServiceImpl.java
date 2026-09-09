@@ -18,6 +18,8 @@ import org.springframework.stereotype.Service;
 import com.github.hwc2243.upgrade.UpgradeAction;
 import com.github.hwc2243.upgrade.dto.UpgradeDTO;
 
+import jakarta.annotation.PostConstruct;
+
 @Service
 public class UpgradeRunnerServiceImpl implements UpgradeRunnerService {
 	private static final Logger log = LoggerFactory.getLogger(UpgradeRunnerServiceImpl.class);
@@ -27,6 +29,14 @@ public class UpgradeRunnerServiceImpl implements UpgradeRunnerService {
 	
     @Autowired
     protected UpgradeService upgradeService;
+
+    @PostConstruct
+    void validateConfiguration() {
+        if (packageToScan == null || packageToScan.isBlank()) {
+            throw new IllegalStateException(
+                    "The required property 'upgrade.package-to-scan' must be configured.");
+        }
+    }
     
 	@Override
 	public void doUpgrade() throws Exception {
